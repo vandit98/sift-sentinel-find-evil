@@ -1,0 +1,13 @@
+{
+  "case_id": "demo-evil-001",
+  "evidence_integrity_ok": true,
+  "final_statuses": {
+    "F-001": "confirmed",
+    "F-002": "refuted",
+    "F-003": "confirmed",
+    "F-004": "confirmed"
+  },
+  "iterations": 2,
+  "remaining_requested_tools": [],
+  "run_id": "demo-benchmark"
+}

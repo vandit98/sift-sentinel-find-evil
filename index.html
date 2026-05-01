@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Evidence-safe autonomous DFIR agent and custom MCP server for Protocol SIFT.">
+    <title>SIFT Sentinel</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #182026;
+        --muted: #5b6872;
+        --line: #cbd5dc;
+        --panel: #ffffff;
+        --bg: #eef2f3;
+        --accent: #0f766e;
+        --accent-2: #b91c1c;
+        --accent-3: #334155;
+        --good: #166534;
+        --warn: #a16207;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        letter-spacing: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+      }
+
+      aside {
+        background: #111827;
+        color: #f8fafc;
+        padding: 24px;
+        border-right: 1px solid #0f172a;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .mark {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #5eead4;
+        color: #5eead4;
+        font-weight: 800;
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.1;
+      }
+
+      .brand p {
+        margin: 3px 0 0;
+        color: #a7b4c2;
+        font-size: 13px;
+      }
+
+      nav {
+        display: grid;
+        gap: 8px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #dbeafe;
+        border: 1px solid #263241;
+        padding: 10px 12px;
+        font-size: 14px;
+        background: #172033;
+      }
+
+      main {
+        padding: 28px;
+        max-width: 1180px;
+        width: 100%;
+      }
+
+      .topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #064e3b;
+        border: 1px solid #99f6e4;
+        background: #ccfbf1;
+        padding: 7px 10px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 0 13px;
+        border: 1px solid var(--accent-3);
+        background: var(--accent-3);
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .button.secondary {
+        background: #fff;
+        color: var(--accent-3);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 420px;
+        gap: 18px;
+        align-items: stretch;
+        margin-bottom: 18px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+
+      .summary {
+        padding: 24px;
+      }
+
+      .summary h2 {
+        font-size: 36px;
+        line-height: 1.05;
+        margin: 0 0 12px;
+        max-width: 760px;
+      }
+
+      .summary p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.55;
+        max-width: 780px;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .metric {
+        border: 1px solid var(--line);
+        padding: 12px;
+        min-height: 82px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 25px;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .terminal {
+        background: #0b1220;
+        color: #d1fae5;
+        padding: 18px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 13px;
+        line-height: 1.45;
+        overflow: hidden;
+      }
+
+      .terminal .dim {
+        color: #8ea4b8;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      section {
+        margin-top: 18px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        padding: 18px;
+        min-height: 190px;
+      }
+
+      .card h3,
+      .wide h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .card p,
+      .wide p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+        font-size: 14px;
+      }
+
+      .list {
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+
+      .list li {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 8px;
+        color: #334155;
+        font-size: 14px;
+      }
+
+      .wide {
+        background: #fff;
+        border: 1px solid var(--line);
+        padding: 18px;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .step {
+        border: 1px solid var(--line);
+        min-height: 92px;
+        padding: 12px;
+        background: #f8fafc;
+      }
+
+      .step b {
+        display: block;
+        font-size: 13px;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+
+      .step span {
+        color: #334155;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      code {
+        background: #e2e8f0;
+        padding: 2px 5px;
+        font-size: 0.92em;
+      }
+
+      footer {
+        color: var(--muted);
+        padding: 22px 0 8px;
+        font-size: 13px;
+      }
+
+      @media (max-width: 920px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        aside {
+          position: static;
+        }
+
+        nav {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hero,
+        .grid,
+        .flow {
+          grid-template-columns: 1fr;
+        }
+
+        .metrics {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        main {
+          padding: 18px;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .topline {
+          display: block;
+        }
+
+        .actions {
+          margin-top: 12px;
+        }
+
+        nav,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .summary h2 {
+          font-size: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <div class="brand">
+          <div class="mark">SS</div>
+          <div>
+            <h1>SIFT Sentinel</h1>
+            <p>Protocol SIFT defender</p>
+          </div>
+        </div>
+        <nav aria-label="Project links">
+          <a href="https://github.com/vandit98/sift-sentinel">GitHub repository</a>
+          <a href="https://github.com/vandit98/sift-sentinel/blob/main/docs/ARCHITECTURE.md">Architecture</a>
+          <a href="https://github.com/vandit98/sift-sentinel/blob/main/docs/DATASET.md">Dataset docs</a>
+          <a href="https://github.com/vandit98/sift-sentinel/blob/main/docs/ACCURACY_REPORT.md">Accuracy report</a>
+          <a href="https://github.com/vandit98/sift-sentinel/blob/main/docs/TRY_IT_OUT.md">Try it out</a>
+        </nav>
+      </aside>
+
+      <main>
+        <div class="topline">
+          <div class="badge">Evidence integrity checked before and after each run</div>
+          <div class="actions">
+            <a class="button" href="https://github.com/vandit98/sift-sentinel">View code</a>
+            <a class="button secondary" href="https://github.com/vandit98/sift-sentinel/blob/main/docs/TRY_IT_OUT.md">Run locally</a>
+          </div>
+        </div>
+
+        <div class="hero">
+          <section class="panel summary" id="overview">
+            <h2>Evidence-safe autonomous DFIR for Protocol SIFT.</h2>
+            <p>
+              SIFT Sentinel is a custom MCP server and self-correcting triage agent that lets an AI responder move quickly while preserving evidence, refusing unsupported claims, and producing traceable findings.
+            </p>
+            <div class="metrics" aria-label="Demo benchmark metrics">
+              <div class="metric"><strong>1.0</strong><span>precision</span></div>
+              <div class="metric"><strong>1.0</strong><span>recall</span></div>
+              <div class="metric"><strong>0</strong><span>hallucinations</span></div>
+              <div class="metric"><strong>9/9</strong><span>tests passing</span></div>
+            </div>
+          </section>
+
+          <section class="panel terminal" aria-label="Run command">
+            <div class="dim">$ PYTHONPATH=src python3 -m sift_sentinel benchmark \</div>
+            <div class="dim">&nbsp;&nbsp;--case cases/demo-case/case.json \</div>
+            <div class="dim">&nbsp;&nbsp;--run-id demo-benchmark \</div>
+            <div class="dim">&nbsp;&nbsp;--max-iterations 3</div>
+            <br>
+            <div>{</div>
+            <div>&nbsp;&nbsp;"precision": 1.0,</div>
+            <div>&nbsp;&nbsp;"recall": 1.0,</div>
+            <div>&nbsp;&nbsp;"hallucination_count": 0,</div>
+            <div>&nbsp;&nbsp;"refuted_finding_ids": ["F-002"]</div>
+            <div>}</div>
+          </section>
+        </div>
+
+        <section class="grid" id="controls">
+          <article class="card">
+            <h3>Typed MCP tools</h3>
+            <p>The model does not receive arbitrary shell access. It calls structured forensic tools with validated inputs and predictable outputs.</p>
+            <ul class="list">
+              <li>Memory process and network review</li>
+              <li>Prefetch, Amcache, timeline, and events</li>
+              <li>Registry Run key analysis</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Evidence policy</h3>
+            <p>Evidence paths are read-only by code. Generated reports, logs, and manifests are written only under case outputs.</p>
+            <ul class="list">
+              <li>Pre-run manifest</li>
+              <li>Post-run manifest</li>
+              <li>Spoliation test command</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Self-correction</h3>
+            <p>The agent starts with inferred leads, requests missing checks, and updates findings to confirmed or refuted.</p>
+            <ul class="list">
+              <li>Validation gaps logged</li>
+              <li>Tool call IDs preserved</li>
+              <li>Weak Prefetch-only lead refuted</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="wide" id="workflow">
+          <h3>Autonomous triage workflow</h3>
+          <p>Every finding remains tied to evidence. Every run remains auditable.</p>
+          <div class="flow" aria-label="Workflow">
+            <div class="step"><b>1. Inventory</b><span>Hash configured case evidence and record artifact metadata.</span></div>
+            <div class="step"><b>2. Triage</b><span>Run typed memory, disk, event, and registry tools.</span></div>
+            <div class="step"><b>3. Validate</b><span>Identify missing corroboration before confirming claims.</span></div>
+            <div class="step"><b>4. Correct</b><span>Confirm supported findings and refute unsupported leads.</span></div>
+            <div class="step"><b>5. Report</b><span>Write JSONL logs, findings, accuracy score, and integrity proof.</span></div>
+          </div>
+        </section>
+
+        <section class="wide" id="sift">
+          <h3>SIFT Workstation integration</h3>
+          <p>
+            The static demo runs anywhere with Python. The same policy layer supports SIFT wrapper contracts for Volatility 3, EvtxECmd, MFTECmd, PECmd, AmcacheParser, RECmd, YARA, and Sleuth Kit.
+          </p>
+        </section>
+
+        <footer>
+          SIFT Sentinel is open source under Apache-2.0. Repository: <a href="https://github.com/vandit98/sift-sentinel">github.com/vandit98/sift-sentinel</a>.
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

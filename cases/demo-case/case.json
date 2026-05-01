@@ -1,0 +1,37 @@
+{
+  "case_id": "demo-evil-001",
+  "title": "Demo Evil: Workstation Intrusion With Memory Injection",
+  "description": "Synthetic, redistributable fixture that models a Windows workstation intrusion across memory, disk, registry, and event artifacts.",
+  "evidence_root": "evidence",
+  "output_root": "outputs",
+  "ground_truth": "ground_truth.json",
+  "known_good": {
+    "internal_networks": [
+      "10.20.0.0/16",
+      "172.16.0.0/12",
+      "192.168.0.0/16"
+    ],
+    "allowlisted_paths": [
+      "c:\\windows\\system32\\svchost.exe",
+      "c:\\windows\\system32\\rundll32.exe",
+      "c:\\windows\\system32\\windowspowershell\\v1.0\\powershell.exe"
+    ]
+  },
+  "artifacts": {
+    "memory_processes": "evidence/memory/processes.csv",
+    "memory_netstat": "evidence/memory/netstat.csv",
+    "memory_malfind": "evidence/memory/malfind.csv",
+    "disk_prefetch": "evidence/disk/prefetch.csv",
+    "disk_amcache": "evidence/disk/amcache.csv",
+    "disk_timeline": "evidence/disk/timeline.csv",
+    "windows_events": "evidence/disk/evtx_security.csv",
+    "registry_run_keys": "evidence/disk/registry_run_keys.csv",
+    "network_pcap_summary": "evidence/network/pcap_summary.csv"
+  },
+  "metadata": {
+    "dataset_license": "CC0-style synthetic fixture generated for the Find Evil hackathon project",
+    "timezone": "UTC",
+    "architecture_pattern": "Custom MCP Server + Self-Correcting Agent Loop"
+  }
+}
+

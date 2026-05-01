@@ -1,0 +1,5 @@
+path,sha1,first_run_utc,signed,company,source_artifact
+C:\Users\Public\winupdate.exe,6F1D7B81C0FF1DAA2D7C9CE9E6FAE7D2C2F40111,2026-04-28T14:18:03Z,false,Unknown,C:\Windows\AppCompat\Programs\Amcache.hve
+C:\ProgramData\AcmeCache\SyncCache.dll,0C0FFEE000ABAD1DEA000000000000000000BEEF,2026-04-28T14:19:54Z,false,Unknown,C:\Windows\AppCompat\Programs\Amcache.hve
+C:\Windows\System32\rundll32.exe,AD2F35B8A69E6C4202E8AB9A3CE1F2A900000001,2026-04-28T14:20:11Z,true,Microsoft Corporation,C:\Windows\AppCompat\Programs\Amcache.hve
+

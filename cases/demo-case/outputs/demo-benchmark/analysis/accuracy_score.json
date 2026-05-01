@@ -1,0 +1,18 @@
+{
+  "confirmed_count": 3,
+  "f1": 1.0,
+  "false_positive_finding_ids": [],
+  "hallucinated_finding_ids": [],
+  "hallucination_count": 0,
+  "missed_truth_ids": [],
+  "precision": 1.0,
+  "recall": 1.0,
+  "refuted_finding_ids": [
+    "F-002"
+  ],
+  "true_positive_ids": [
+    "GT-001",
+    "GT-002",
+    "GT-003"
+  ]
+}

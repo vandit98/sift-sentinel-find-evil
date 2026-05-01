@@ -1,0 +1,3 @@
+hive,key,value_name,value_data,timestamp_utc
+NTUSER.DAT,HKCU\Software\Microsoft\Windows\CurrentVersion\Run,AcmeSync,"rundll32.exe C:\ProgramData\AcmeCache\SyncCache.dll,Start",2026-04-28T14:20:12Z
+

@@ -1,0 +1,5 @@
+pid,process_name,local_address,local_port,remote_ip,remote_port,state,created_utc
+892,svchost.exe,10.20.14.23,49712,10.20.0.10,53,ESTABLISHED,2026-04-28T14:15:01Z
+4884,winupdate.exe,10.20.14.23,49888,45.77.89.22,443,ESTABLISHED,2026-04-28T14:18:16Z
+4312,explorer.exe,10.20.14.23,49910,10.20.4.20,445,CLOSE_WAIT,2026-04-28T14:10:22Z
+

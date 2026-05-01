@@ -1,0 +1,27 @@
+{
+  "truth": [
+    {
+      "id": "GT-001",
+      "title": "Masqueraded winupdate.exe performed external C2 and contained injected executable memory",
+      "required_evidence": ["memory_netstat", "memory_malfind", "disk_amcache", "disk_timeline"]
+    },
+    {
+      "id": "GT-002",
+      "title": "HKCU Run key persisted SyncCache.dll through rundll32.exe",
+      "required_evidence": ["windows_events", "disk_timeline", "registry_run_keys"]
+    },
+    {
+      "id": "GT-003",
+      "title": "Encoded PowerShell staged or executed winupdate.exe",
+      "required_evidence": ["windows_events", "memory_processes", "disk_timeline"]
+    }
+  ],
+  "benign_or_refuted_leads": [
+    {
+      "id": "TRAP-001",
+      "title": "Prefetch-only C:\\Users\\Public\\svchost.exe anomaly lacks Amcache or timeline support",
+      "expected_agent_behavior": "Do not report as confirmed. Mark as refuted or unresolved."
+    }
+  ]
+}
+

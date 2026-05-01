@@ -1,0 +1,7 @@
+pid,ppid,name,image_path,command_line,user,start_time_utc,verified_publisher
+704,612,services.exe,C:\Windows\System32\services.exe,C:\Windows\System32\services.exe,NT AUTHORITY\SYSTEM,2026-04-28T13:00:02Z,Microsoft Windows
+892,704,svchost.exe,C:\Windows\System32\svchost.exe,C:\Windows\System32\svchost.exe -k NetworkService,NT AUTHORITY\NETWORK SERVICE,2026-04-28T13:00:06Z,Microsoft Windows
+5276,4312,powershell.exe,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,powershell.exe -NoP -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAKQA7 Start-Process C:\Users\Public\winupdate.exe,ACME\jlee,2026-04-28T14:17:37Z,Microsoft Windows
+4884,5276,winupdate.exe,C:\Users\Public\winupdate.exe,C:\Users\Public\winupdate.exe --sync --host cdn-update-check.example,ACME\jlee,2026-04-28T14:18:03Z,Unknown
+6220,4312,rundll32.exe,C:\Windows\System32\rundll32.exe,"rundll32.exe C:\ProgramData\AcmeCache\SyncCache.dll,Start",ACME\jlee,2026-04-28T14:20:11Z,Microsoft Windows
+

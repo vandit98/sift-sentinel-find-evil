@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sift-sentinel"
+version = "0.1.0"
+description = "Evidence-safe autonomous DFIR agent and MCP server for Protocol SIFT."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "Apache-2.0"
+authors = [
+  {name = "Vandit", email = "grindandeat786@gmail.com"}
+]
+keywords = ["dfir", "mcp", "sift", "incident-response", "forensics", "ai-agent"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+  "Topic :: System :: Systems Administration",
+]
+dependencies = []
+
+[project.scripts]
+sift-sentinel = "sift_sentinel.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

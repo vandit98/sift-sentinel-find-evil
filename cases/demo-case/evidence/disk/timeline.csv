@@ -1,0 +1,6 @@
+timestamp_utc,source,path,event,details
+2026-04-28T14:17:49Z,$UsnJrnl,C:\Users\Public\winupdate.exe,FileCreate,Created by powershell.exe PID 5276
+2026-04-28T14:18:04Z,Prefetch,C:\Users\Public\winupdate.exe,Execution,Prefetch first run recorded
+2026-04-28T14:19:54Z,$MFT,C:\ProgramData\AcmeCache\SyncCache.dll,FileCreate,Unsigned DLL created in ProgramData
+2026-04-28T14:20:12Z,Registry,HKCU\Software\Microsoft\Windows\CurrentVersion\Run\AcmeSync,ValueSet,"rundll32.exe C:\ProgramData\AcmeCache\SyncCache.dll,Start"
+

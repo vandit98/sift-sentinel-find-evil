@@ -1,0 +1,15 @@
+{
+  "after_manifest_path": "/Users/vandit/Documents/New project 5/cases/demo-case/outputs/demo-benchmark/analysis/evidence_manifest_after.json",
+  "before_manifest_path": "/Users/vandit/Documents/New project 5/cases/demo-case/outputs/demo-benchmark/analysis/evidence_manifest_before.json",
+  "case_id": "demo-evil-001",
+  "checked_at": "2026-04-30T22:36:49Z",
+  "comparison": {
+    "added": [],
+    "after_artifact_count": 9,
+    "before_artifact_count": 9,
+    "changed": [],
+    "missing": [],
+    "ok": true
+  },
+  "run_id": "demo-benchmark"
+}

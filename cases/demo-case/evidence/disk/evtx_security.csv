@@ -1,0 +1,5 @@
+event_id,timestamp_utc,provider,record_id,process_name,command_line,user,parent_process
+4688,2026-04-28T14:17:37Z,Microsoft-Windows-Security-Auditing,88422,powershell.exe,powershell.exe -NoP -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAKQA7 Start-Process C:\Users\Public\winupdate.exe,ACME\jlee,explorer.exe
+4688,2026-04-28T14:20:11Z,Microsoft-Windows-Security-Auditing,88491,rundll32.exe,"rundll32.exe C:\ProgramData\AcmeCache\SyncCache.dll,Start",ACME\jlee,explorer.exe
+7045,2026-04-28T14:24:03Z,Service Control Manager,88521,services.exe,Service installed: IntelTelemetryUpdater binPath=C:\Users\Public\winupdate.exe,NT AUTHORITY\SYSTEM,services.exe
+

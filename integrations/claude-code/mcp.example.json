@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "sift-sentinel": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "sift_sentinel",
+        "mcp"
+      ],
+      "env": {
+        "PYTHONPATH": "/absolute/path/to/sift-sentinel/src"
+      }
+    }
+  }
+}
+

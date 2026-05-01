@@ -1,0 +1,12 @@
+flowchart LR
+    Analyst["Analyst or MCP host"] --> MCP["SIFT Sentinel MCP server"]
+    MCP --> Agent["Self-correcting triage loop"]
+    Agent --> Tools["Typed forensic tools"]
+    Tools --> Policy["EvidencePolicy guard"]
+    Policy --> Evidence["Read-only evidence root"]
+    Policy --> Outputs["Case outputs only"]
+    Tools --> SIFT["Optional SIFT wrappers: Volatility, EvtxECmd, TSK"]
+    Agent --> Logs["JSONL execution logs"]
+    Agent --> Reports["Findings and Markdown report"]
+    Reports --> Benchmark["Accuracy scoring"]
+

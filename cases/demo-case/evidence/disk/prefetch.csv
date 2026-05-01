@@ -1,0 +1,5 @@
+executable_name,path,last_run_utc,run_count,source_artifact
+WINUPDATE.EXE,C:\Users\Public\winupdate.exe,2026-04-28T14:18:04Z,1,C:\Windows\Prefetch\WINUPDATE.EXE-8A1B2C3D.pf
+SVCHOST.EXE,C:\Users\Public\svchost.exe,2026-04-28T14:16:55Z,1,C:\Windows\Prefetch\SVCHOST.EXE-11112222.pf
+RUNDLL32.EXE,C:\Windows\System32\rundll32.exe,2026-04-28T14:20:11Z,2,C:\Windows\Prefetch\RUNDLL32.EXE-4477AA00.pf
+

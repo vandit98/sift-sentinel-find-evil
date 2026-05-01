@@ -1,0 +1,4 @@
+# SIFT Sentinel intentionally runs on the Python standard library.
+# Optional MCP SDK integration can be added by judges, but the bundled MCP
+# stdio server does not require external packages.
+

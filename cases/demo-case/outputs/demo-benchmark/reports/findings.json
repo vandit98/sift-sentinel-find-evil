@@ -1,0 +1,183 @@
+[
+  {
+    "confidence": 0.94,
+    "corrected_from": null,
+    "details": {
+      "malfind": "Private VAD contains MZ header and shellcode-like strings; not backed by image file",
+      "pid": "4884",
+      "remote_ip": "45.77.89.22",
+      "remote_port": "443",
+      "self_correction": "Confirmed after adding malfind, Amcache, and disk timeline evidence.",
+      "sha1": "6F1D7B81C0FF1DAA2D7C9CE9E6FAE7D2C2F40111"
+    },
+    "evidence": [
+      {
+        "artifact": "memory_netstat",
+        "field": "remote_ip",
+        "row": 2,
+        "tool_call_id": "memory_netstat-04c13142bb",
+        "value": "45.77.89.22"
+      },
+      {
+        "artifact": "memory_processes",
+        "field": "image_path",
+        "row": 4,
+        "tool_call_id": "memory_processes-ac4e76654e",
+        "value": "C:\\Users\\Public\\winupdate.exe"
+      },
+      {
+        "artifact": "disk_prefetch",
+        "field": "path",
+        "row": 1,
+        "tool_call_id": "disk_prefetch-06ba450501",
+        "value": "C:\\Users\\Public\\winupdate.exe"
+      },
+      {
+        "artifact": "memory_malfind",
+        "field": "protection",
+        "row": 1,
+        "tool_call_id": "memory_malfind-181d7a5a57",
+        "value": "PAGE_EXECUTE_READWRITE"
+      },
+      {
+        "artifact": "disk_amcache",
+        "field": "sha1",
+        "row": 1,
+        "tool_call_id": "disk_amcache-a154eeef07",
+        "value": "6F1D7B81C0FF1DAA2D7C9CE9E6FAE7D2C2F40111"
+      },
+      {
+        "artifact": "disk_timeline",
+        "field": "event",
+        "row": 1,
+        "tool_call_id": "disk_timeline-1d6aa8f234",
+        "value": "FileCreate"
+      }
+    ],
+    "finding_id": "F-001",
+    "ground_truth_ids": [
+      "GT-001"
+    ],
+    "hypothesis": "A masqueraded winupdate.exe process communicated externally and contains injected executable memory.",
+    "mitre": [
+      "T1055",
+      "T1036",
+      "T1071"
+    ],
+    "severity": "critical",
+    "status": "confirmed",
+    "title": "Winupdate.exe beacon with memory injection evidence"
+  },
+  {
+    "confidence": 0.08,
+    "corrected_from": null,
+    "details": {
+      "path": "C:\\Users\\Public\\svchost.exe",
+      "self_correction": "Self-corrected: no Amcache or timeline record for the suspicious path, so this stays out of confirmed findings."
+    },
+    "evidence": [
+      {
+        "artifact": "disk_prefetch",
+        "field": "path",
+        "row": 2,
+        "tool_call_id": "disk_prefetch-06ba450501",
+        "value": "C:\\Users\\Public\\svchost.exe"
+      }
+    ],
+    "finding_id": "F-002",
+    "ground_truth_ids": [],
+    "hypothesis": "Prefetch references svchost.exe outside System32, but this requires corroboration before reporting.",
+    "mitre": [
+      "T1036"
+    ],
+    "severity": "medium",
+    "status": "refuted",
+    "title": "Uncorroborated svchost.exe path anomaly"
+  },
+  {
+    "confidence": 0.88,
+    "corrected_from": null,
+    "details": {
+      "self_correction": "Confirmed after process and timeline corroboration.",
+      "user": "ACME\\jlee"
+    },
+    "evidence": [
+      {
+        "artifact": "windows_events",
+        "field": "command_line",
+        "row": 1,
+        "tool_call_id": "windows_events-63e32b26a0",
+        "value": "powershell.exe -NoP -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAKQA7 Start-Process C:\\Users\\Public\\winupdate.exe"
+      },
+      {
+        "artifact": "memory_processes",
+        "field": "command_line",
+        "row": 3,
+        "tool_call_id": "memory_processes-ac4e76654e",
+        "value": "powershell.exe -NoP -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAKQA7 Start-Process C:\\Users\\Public\\winupdate.exe"
+      },
+      {
+        "artifact": "disk_timeline",
+        "field": "path",
+        "row": 1,
+        "tool_call_id": "disk_timeline-1d6aa8f234",
+        "value": "C:\\Users\\Public\\winupdate.exe"
+      }
+    ],
+    "finding_id": "F-004",
+    "ground_truth_ids": [
+      "GT-003"
+    ],
+    "hypothesis": "PowerShell launched an encoded command that staged or executed winupdate.exe.",
+    "mitre": [
+      "T1059.001",
+      "T1105"
+    ],
+    "severity": "high",
+    "status": "confirmed",
+    "title": "Encoded PowerShell staged winupdate.exe"
+  },
+  {
+    "confidence": 0.91,
+    "corrected_from": null,
+    "details": {
+      "self_correction": "Confirmed only after registry Run key evidence was collected."
+    },
+    "evidence": [
+      {
+        "artifact": "windows_events",
+        "field": "command_line",
+        "row": 2,
+        "tool_call_id": "windows_events-63e32b26a0",
+        "value": "rundll32.exe C:\\ProgramData\\AcmeCache\\SyncCache.dll,Start"
+      },
+      {
+        "artifact": "disk_timeline",
+        "field": "path",
+        "row": 3,
+        "tool_call_id": "disk_timeline-1d6aa8f234",
+        "value": "C:\\ProgramData\\AcmeCache\\SyncCache.dll"
+      },
+      {
+        "artifact": "registry_run_keys",
+        "field": "value_data",
+        "row": 1,
+        "tool_call_id": "registry_run_keys-9473f7c59e",
+        "value": "rundll32.exe C:\\ProgramData\\AcmeCache\\SyncCache.dll,Start"
+      }
+    ],
+    "finding_id": "F-003",
+    "ground_truth_ids": [
+      "GT-002"
+    ],
+    "hypothesis": "A user Run key persists a suspicious DLL through rundll32.exe.",
+    "mitre": [
+      "T1112",
+      "T1218.011",
+      "T1547.001"
+    ],
+    "severity": "high",
+    "status": "confirmed",
+    "title": "Run key persistence loads SyncCache.dll via rundll32"
+  }
+]

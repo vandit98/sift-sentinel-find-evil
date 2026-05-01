@@ -1,0 +1,3 @@
+pid,process_name,vad_start,protection,mz_header,yara_hit,details
+4884,winupdate.exe,0x000001d500000000,PAGE_EXECUTE_READWRITE,true,SIFT_SENTINEL_SHELLCODE,"Private VAD contains MZ header and shellcode-like strings; not backed by image file"
+
